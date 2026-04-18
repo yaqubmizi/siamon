@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>এক্সপেরিমেন্টস ল্যাব | ইয়াকুব মিজি অনিম</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', 'Noto Sans Bengali', system-ui, sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* ========== লাইট মোড ========== */
+    :root {
+      --bg-primary: #f0f9ff;
+      --bg-secondary: #ffffff;
+      --card-bg: #ffffff;
+      --text-primary: #0c4a6e;
+      --text-secondary: #0369a1;
+      --border: #bae6fd;
+      --accent: #0284c7;
+      --accent-light: #e0f2fe;
+      --accent-glow: rgba(2,132,199,0.1);
+      --gradient-1: linear-gradient(135deg, #0284c7, #0ea5e9);
+      --gradient-2: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --header-bg: rgba(255,255,255,0.85);
+    }
+
+    /* ========== ডার্ক মোড ========== */
+    body.dark {
+      --bg-primary: #030712;
+      --bg-secondary: #111827;
+      --card-bg: #1f2937;
+      --text-primary: #f0f9ff;
+      --text-secondary: #94a3b8;
+      --border: #1e40af;
+      --accent: #38bdf8;
+      --accent-light: #1e293b;
+      --accent-glow: rgba(56,189,248,0.15);
+      --gradient-1: linear-gradient(135deg, #38bdf8, #818cf8);
+      --gradient-2: linear-gradient(135deg, #818cf8, #c084fc);
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      --header-bg: rgba(17,24,39,0.92);
+    }
+
+    body.dark .card {
+      background: linear-gradient(135deg, #1f2937, #111827);
+    }
+
+    body.dark .card:hover {
+      box-shadow: 0 0 30px rgba(56,189,248,0.15);
+      border-color: #38bdf8;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+    }
+
+    /* হেডার */
+    header {
+      background: var(--header-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      padding: 0.8rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--gradient-1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo span {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .menu {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .menu a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      background: var(--accent-light);
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      color: var(--accent);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.02);
+    }
+
+    /* হিরো */
+    .hero {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--bg-secondary);
+      border-radius: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      background: var(--gradient-1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 1rem auto 0;
+      font-size: 1.05rem;
+    }
+
+    /* অ্যালার্ট বার */
+    .alert-bar {
+      background: linear-gradient(135deg, #0284c720, #0ea5e920);
+      border-left: 4px solid var(--accent);
+      border-radius: 1rem;
+      padding: 0.8rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .alert-bar p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .alert-bar i {
+      color: var(--accent);
+      font-size: 1.2rem;
+    }
+
+    .alert-close {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    .alert-close:hover {
+      color: var(--accent);
+    }
+
+    /* সেকশন */
+    .section {
+      margin: 3rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header i {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* কার্ড */
+    .card {
+      background: var(--card-bg);
+      border-radius: 1.5rem;
+      padding: 1.6rem;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 30px -12px var(--accent-glow);
+    }
+
+    .card-icon {
+      font-size: 2.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background: var(--accent-light);
+      padding: 0.2rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .instructor-card {
+      background: var(--gradient-1);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      color: white;
+    }
+
+    .instructor-icon {
+      font-size: 3.5rem;
+    }
+
+    .instructor-info h3 {
+      font-size: 1.5rem;
+    }
+
+    .instructor-info p {
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    /* যোগাযোগ */
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-icon {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.7rem 1.8rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .contact-icon:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .creator {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: var(--accent-light);
+      border-radius: 1.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .floating-chat {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gradient-1);
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+      z-index: 999;
+    }
+
+    .floating-chat:hover {
+      transform: scale(1.1);
+    }
+
+    .floating-chat i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(56,189,248,0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(56,189,248,0); }
+      100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+    }
+
+    body.dark .floating-chat {
+      animation: pulse 2s infinite;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0.8rem 1rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .section-header h2 { font-size: 1.3rem; }
+      header { flex-direction: column; gap: 0.8rem; text-align: center; }
+      .instructor-card { flex-direction: column; text-align: center; }
+      .floating-chat { width: 45px; height: 45px; bottom: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header data-aos="fade-down">
+    <div class="logo">
+      <h1><i class="fas fa-flask"></i> এক্সপেরিমেন্টস ল্যাব</h1>
+      <span>পরীক্ষা-নিরীক্ষার জগৎ</span>
+    </div>
+    <div class="menu">
+      <a href="#home"><i class="fas fa-home"></i> হোম</a>
+      <a href="#science"><i class="fas fa-microscope"></i> বিজ্ঞান</a>
+      <a href="#tech"><i class="fas fa-laptop-code"></i> টেক</a>
+      <a href="#creative"><i class="fas fa-palette"></i> ক্রিয়েটিভ</a>
+      <a href="#instructor"><i class="fas fa-user"></i> প্রশিক্ষক</a>
+      <button class="theme-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i> <span>ডার্ক</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- অ্যালার্ট বার -->
+  <div class="alert-bar" id="alertBar" data-aos="fade-down">
+    <p><i class="fas fa-flask"></i> 🧪 নতুন পরীক্ষা! ওয়েব ডেভেলপমেন্টে এক্সপেরিমেন্ট নিয়ে লাইভ সেশন ৩০ এপ্রিল। অংশগ্রহণ ফ্রি!</p>
+    <button class="alert-close" id="closeAlert"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- হিরো -->
+  <div id="home" class="hero" data-aos="fade-up">
+    <h1><span class="gradient-text">এক্সপেরিমেন্টস</span> ল্যাবরেটরি</h1>
+    <p>নতুন কিছু তৈরি করা, ভাঙা, শেখা এবং আবিষ্কার করার জায়গা — বিজ্ঞান, প্রযুক্তি, ডিজাইন আরও অনেক কিছু</p>
+  </div>
+
+  <!-- বিজ্ঞান পরীক্ষা -->
+  <div id="science" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-microscope"></i>
+      <h2>🔬 বিজ্ঞান পরীক্ষা</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card-icon"><i class="fas fa-tint"></i></div>
+        <h3>রাসায়নিক বিক্রিয়া</h3>
+        <p>ভিনেগার ও বেকিং সোডার বিক্রিয়া, লিটমাস পেপার পরীক্ষা, অ্যাসিড-বেস বিক্রিয়া — মজার মজার রাসায়নিক পরীক্ষা যা বাসায় করাই যায়।</p>
+        <div class="tag-list"><span class="tag">সেফ</span><span class="tag">ইজি</span><span class="tag">ফানি</span></div>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="150">
+        <div class="card-icon"><i class="fas fa-bolt"></i></div>
+        <h3>পদার্থবিদ্যার পরীক্ষা</h3>
+        <p>চুম্বকের বল, আলোর প্রতিফলন, সরল পেন্ডুলাম, স্ট্যাটিক ইলেকট্রিসিটি — বিজ্ঞানের মজার মজার এক্সপেরিমেন্ট।</p>
+        <div class="tag-list"><span class="tag">ম্যাগনেটিজম</span><span class="tag">লাইট</span><span class="tag">ফোর্স</span></div>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card-icon"><i class="fas fa-leaf"></i></div>
+        <h3>জীববিজ্ঞান পরীক্ষা</h3>
+        <p>পেঁয়াজের কোষ পর্যবেক্ষণ, উদ্ভিদের বৃদ্ধি, অণুজীব চাষ — জীবনের রহস্য উন্মোচনের ছোট ছোট পরীক্ষা।</p>
+        <div class="tag-list"><span class="tag">মাইক্রোস্কোপ</span><span class="tag">প্ল্যান্ট</span><span class="tag">সেল</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- টেকনোলজি এক্সপেরিমেন্ট -->
+  <div id="tech" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-laptop-code"></i>
+      <h2>💻 টেকনোলজি এক্সপেরিমেন্ট</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card" data-aos="flip-left" data-aos-delay="100">
+        <div class="card-icon"><i class="fab fa-html5"></i></div>
+        <h3>ওয়েব ডেভেলপমেন্ট</h3>
+        <p>নতুন CSS এনিমেশন, JavaScript মিনি প্রজেক্ট, API নিয়ে খেলা — ওয়েবের জগতে আনলিমিটেড এক্সপেরিমেন্টের সুযোগ।</p>
+        <div class="tag-list"><span class="tag">HTML/CSS</span><span class="tag">JS</span><span class="tag">API</span></div>
+      </div>
+      <div class="card" data-aos="flip-left" data-aos-delay="150">
+        <div class="card-icon"><i class="fas fa-robot"></i></div>
+        <h3>এআই ও মেশিন লার্নিং</h3>
+        <p>ছোট ডেটাসেট নিয়ে মডেল ট্রেনিং, চ্যাটবট বানানো, ইমেজ রিকগনিশন — এআই নিয়ে এক্সপেরিমেন্ট করুন।</p>
+        <div class="tag-list"><span class="tag">পাইথন</span><span class="tag">টেনসরফ্লো</span><span class="tag">এলএলএম</span></div>
+      </div>
+      <div class="card" data-aos="flip-left" data-aos-delay="200">
+        <div class="card-icon"><i class="fas fa-microchip"></i></div>
+        <h3>আইওটি ও ইলেকট্রনিক্স</h3>
+        <p>Arduino দিয়ে এলইডি ব্লিংক, সেন্সর রিডিং, IoT ডিভাইস তৈরি — হার্ডওয়্যার এক্সপেরিমেন্ট।</p>
+        <div class="tag-list"><span class="tag">Arduino</span><span class="tag">সেন্সর</span><span class="tag">IoT</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ক্রিয়েটিভ এক্সপেরিমেন্ট -->
+  <div id="creative" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-palette"></i>
+      <h2>🎨 ক্রিয়েটিভ এক্সপেরিমেন্ট</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-icon"><i class="fas fa-paintbrush"></i></div>
+        <h3>আর্ট ও ডিজাইন</h3>
+        <p>নতুন কালার কম্বিনেশন, টাইপোগ্রাফি এক্সপেরিমেন্ট, ডিজিটাল আর্ট তৈরি — ক্রিয়েটিভিটি লিমিটলেস।</p>
+        <div class="tag-list"><span class="tag">গ্রাফিক ডিজাইন</span><span class="tag">ইলাস্ট্রেশন</span><span class="tag">টাইপোগ্রাফি</span></div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="150">
+        <div class="card-icon"><i class="fas fa-music"></i></div>
+        <h3>সাউন্ড ও মিউজিক</h3>
+        <p>বিট তৈরি, সাউন্ড এফেক্ট, মিউজিক কম্পোজিশন — শব্দ নিয়ে নানা এক্সপেরিমেন্ট।</p>
+        <div class="tag-list"><span class="tag">বীট মেকিং</span><span class="tag">এডিটিং</span><span class="tag">সাউন্ড ডিজাইন</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- আলোচনা সেকশন -->
+  <div class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-comments"></i>
+      <h2>💬 এক্সপেরিমেন্ট নিয়ে আলোচনা</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-quote-right" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; display: block;"></i>
+        <h3>কেন এক্সপেরিমেন্ট গুরুত্বপূর্ণ?</h3>
+        <p>এক্সপেরিমেন্ট আমাদের শেখায় — কিভাবে চেষ্টা করতে হয়, ব্যর্থ হতে হয়, আবার নতুন করে শুরু করতে হয়। প্রতিটি বড় আবিষ্কারের পেছনে আছে হাজারো ব্যর্থ পরীক্ষা। তাই এক্সপেরিমেন্ট করুন, শিখুন, বাড়ুন।</p>
+        <div class="tag-list"><span class="tag">লার্নিং বাই ডুইং</span><span class="tag">ইনোভেশন</span><span class="tag">ক্রিয়েটিভিটি</span></div>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="150">
+        <i class="fas fa-lightbulb" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; display: block;"></i>
+        <h3>কিভাবে এক্সপেরিমেন্ট শুরু করবেন?</h3>
+        <p>ছোট শুরু করুন। একটি ধারণা নিন। ভিন্নভাবে করার চেষ্টা করুন। ব্যর্থ হন, শিখুন, আবার চেষ্টা করুন। আপনার চারপাশের জিনিস নিয়ে পরীক্ষা করুন। নতুন কিছু তৈরি করুন। ডকুমেন্ট করুন। শেয়ার করুন।</p>
+        <div class="tag-list"><span class="tag">স্টার্ট স্মল</span><span class="tag">ডকুমেন্ট</span><span class="tag">শেয়ার</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- প্রশিক্ষক -->
+  <div id="instructor" class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-chalkboard-user"></i>
+      <h2>👨‍🔬 আপনার গাইড</h2>
+    </div>
+    <div class="instructor-card" data-aos="fade-up">
+      <div class="instructor-icon"><i class="fas fa-user-astronaut"></i></div>
+      <div class="instructor-info">
+        <h3>ইয়াকুব মিজি অনিম</h3>
+        <p>এক্সপেরিমেন্টার, ক্রিয়েটিভ এআই ইনস্টিটিউট</p>
+        <p>🎓 আলিম পড়াশোনা করছেন | বিজ্ঞান, প্রযুক্তি ও ক্রিয়েটিভিটি নিয়ে নিত্য নতুন এক্সপেরিমেন্ট করেন</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- যোগাযোগ -->
+  <div class="section">
+    <div class="section-header" data-aos="fade-right">
+      <i class="fas fa-paper-plane"></i>
+      <h2>📬 আমার সাথে যোগাযোগ করুন</h2>
+    </div>
+    <div class="card" data-aos="fade-up">
+      <div class="contact-icons">
+        <a href="https://www.facebook.com/share/1CvjZtcC7b/" target="_blank" class="contact-icon"><i class="fab fa-facebook-f"></i> ফেসবুক</a>
+        <a href="https://wa.me/8801868656094" target="_blank" class="contact-icon"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ</a>
+        <a href="mailto:yakubmizi210@gmail.com" class="contact-icon"><i class="fas fa-envelope"></i> জিমেইল</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ক্রিয়েটর -->
+  <div class="creator" data-aos="zoom-in">
+    <h3><i class="fas fa-crown"></i> এই ওয়েবসাইটটি তৈরি করেছেন</h3>
+    <p style="font-size: 1.4rem; font-weight: 700; margin: 0.3rem 0;">ইয়াকুব মিজি অনিম</p>
+    <p>এক্সপেরিমেন্টার, লার্নার, ক্রিয়েটর</p>
+  </div>
+
+  <footer>
+    <p>© ২০২৬ এক্সপেরিমেন্টস ল্যাব — পরীক্ষা-নিরীক্ষা করে শেখার জায়গা</p>
+    <p>তৈরি করেছেন ইয়াকুব মিজি অনিম</p>
+  </footer>
+</div>
+
+<!-- ফ্লোটিং চ্যাট বাটন -->
+<div class="floating-chat" id="floatingChat">
+  <i class="fas fa-flask"></i>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 600, once: true, offset: 40 });
+
+  // ডার্ক/লাইট টগল
+  const toggle = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  if (localStorage.getItem('theme') === 'light') {
+    body.classList.remove('dark');
+    toggle.innerHTML = '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
+  } else {
+    body.classList.add('dark');
+    toggle.innerHTML = '<i class="fas fa-sun"></i> <span>লাইট</span>';
+  }
+
+  toggle.addEventListener('click', () => {
+    if (body.classList.contains('dark')) {
+      body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      toggle.innerHTML = '<i class="fas fa-moon"></i> <span>ডার্ক</span>';
+    } else {
+      body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      toggle.innerHTML = '<i class="fas fa-sun"></i> <span>লাইট</span>';
+    }
+  });
+
+  // অ্যালার্ট বার বন্ধ
+  const closeAlert = document.getElementById('closeAlert');
+  const alertBar = document.getElementById('alertBar');
+  if (closeAlert) {
+    closeAlert.addEventListener('click', () => {
+      alertBar.style.display = 'none';
+    });
+  }
+
+  // ফ্লোটিং বাটন
+  const floatingChat = document.getElementById('floatingChat');
+  floatingChat.addEventListener('click', () => {
+    alert('🧪 আপনার এক্সপেরিমেন্ট শেয়ার করুন!\n\nযোগাযোগ করুন:\n📘 ফেসবুক: Akram Mahadi\n📞 হোয়াটসঅ্যাপ: 01868656094\n📧 জিমেইল: yakubmizi210@gmail.com');
+  });
+</script>
+</body>
+</html>
